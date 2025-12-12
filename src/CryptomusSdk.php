@@ -64,7 +64,7 @@ class CryptomusSdk
     /**
      * @throws RequestBuilderException
      */
-    public function create_payment(string $invoice_number, float|int $amount, string $currency='USD', string $to_currency='', string $network='', string $return_url='', string $back_url='', string $success_url=''): string
+    public function create_payment(string $invoice_number, float|int $amount, string $currency='USD', string $to_currency='', string $network='', string $return_url='', string $back_url='', string $success_url='', string $lifetime='3600'): string
     {
         $param = [
             'amount' => strval($amount),
@@ -76,7 +76,7 @@ class CryptomusSdk
             'url_success' => $success_url,
             'url_callback' => $back_url,
             'is_payment_multiple' => true,
-            'lifetime' => '3600',
+            'lifetime' => $lifetime,
             'is_refresh' => true,
             'course_source' => 'Binance'
         ];
