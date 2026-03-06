@@ -64,14 +64,14 @@ class CryptomusSdk
     /**
      * @throws RequestBuilderException
      */
-    public function create_payment(string $invoice_number, float|int $amount, string $currency='USD', string $to_currency='', string $network='', string $return_url='', string $back_url='', string $success_url='', string $lifetime='3600'): string
+    public function create_payment(string $invoice_number, float|int $amount, string $currency='USD', string $to_currency='', string $network='', string $return_url='', string $back_url='', string $success_url='', string $lifetime='3600', string $additional_data=''): string
     {
         $param = [
             'amount' => strval($amount),
             'currency' => $currency,
             'network' => $network,
             'order_id' => $invoice_number,
-            'additional_data' => $invoice_number,
+            'additional_data' => $additional_data ?? $invoice_number,
             'url_return' => $return_url,
             'url_success' => $success_url,
             'url_callback' => $back_url,
@@ -119,7 +119,7 @@ class CryptomusSdk
             'invoice_number' => ''
         ];
         if ($this->verify_result($param)) {
-            if ($param['is_final'] && $param['order_id'] && in_array($param['status'], ['paid', 'paid_over'])) {
+            if (in_array($param['status'], ['paid', 'paid_over'])) {
                 $result['status'] = true;
                 $result['init_amount'] = floatval($param['amount']);
                 $result['payment_amount'] = floatval($param['payment_amount']);
