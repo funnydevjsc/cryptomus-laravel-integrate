@@ -115,6 +115,7 @@ class CryptomusSdk
             'status' => false,
             'init_amount' => 0,
             'payment_amount' => 0,
+            'payment_amount_usd' => 0,
             'currency' => '',
             'invoice_number' => ''
         ];
@@ -123,6 +124,7 @@ class CryptomusSdk
                 $result['status'] = true;
                 $result['init_amount'] = floatval($param['amount']);
                 $result['payment_amount'] = floatval($param['payment_amount']);
+                $result['payment_amount_usd'] = floatval($param['payment_amount_usd'] ?? $param['amount']);
                 $result['currency'] = $param['payer_currency'];
                 $result['invoice_number'] = $param['order_id'];
                 $result['message'] = 'Payment successfully from Cryptomus';
@@ -143,6 +145,7 @@ class CryptomusSdk
             'status' => false,
             'init_amount' => 0,
             'payment_amount' => 0,
+            'payment_amount_usd' => 0,
             'currency' => '',
             'invoice_number' => ''
         ];
@@ -151,6 +154,7 @@ class CryptomusSdk
             $result['status'] = true;
             $result['init_amount'] = floatval($data['amount']);
             $result['payment_amount'] = floatval($data['payment_amount']);
+            $result['payment_amount_usd'] = floatval($data['payment_amount_usd'] ?? $data['amount']);
             $result['currency'] = $data['payer_currency'];
             $result['invoice_number'] = $data['order_id'];
             $result['message'] = 'Payment successfully from Cryptomus';
